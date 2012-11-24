@@ -34,6 +34,8 @@ namespace Serelex.Pages
 		List<QuerySearchResults> backStack;
 		QuerySearchResults prevResults;
 
+		bool isSearchProcess;
+
 		public MainPage()
 		{
 			this.InitializeComponent();
@@ -48,7 +50,7 @@ namespace Serelex.Pages
 		/// </param>
 		/// <param name="pageState">Словарь состояния, сохраненного данной страницей в ходе предыдущего
 		/// сеанса. Это значение будет равно NULL при первом посещении страницы.</param>
-		protected override async void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
+		protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
 		{
 			// TODO: Назначение привязываемой коллекции элементов объекту this.DefaultViewModel["Items"]
 			this.DefaultViewModel["CanGoBack"] = false;
@@ -56,6 +58,7 @@ namespace Serelex.Pages
 
 			backStack = new List<QuerySearchResults>();
 			prevResults = null;
+			isSearchProcess = false;
 		}
 		protected override void SaveState(Dictionary<string, object> pageState)
 		{
@@ -85,6 +88,12 @@ namespace Serelex.Pages
 		}
 		private async Task startSearch(string Query, bool AddToStack = true)
 		{
+			if (isSearchProcess)
+				return;
+
+			VisualStateManager.GoToState(this, "Search", true);
+			isSearchProcess = true;
+
 			if (prevResults != null)
 				if (prevResults.Query == Query)
 					return;
@@ -100,11 +109,14 @@ namespace Serelex.Pages
 
 			ObservableCollection<PictureSearchResult> results = await processSearch(Query);
 
+			VisualStateManager.GoToState(this, "Normal", true);
 			this.DefaultViewModel["Items"] = results;
 
 			prevResults = new QuerySearchResults();
 			prevResults.Query = Query;
 			prevResults.Results = results;
+
+			isSearchProcess = false;
 		}
 
 		private async void LoadResultImage(PictureSearchResult Result)
@@ -112,7 +124,7 @@ namespace Serelex.Pages
 			Result.Image = await pp.GetPictureFromQuery(Result.SearchResult.Word);
 		}
 
-		protected override async void GoBack(object sender, RoutedEventArgs e)
+		protected override void GoBack(object sender, RoutedEventArgs e)
 		{
 			int lastIndex = backStack.Count - 1;
 			QuerySearchResults result = backStack[lastIndex];
@@ -133,12 +145,13 @@ namespace Serelex.Pages
 
 		private async void tbSearch_KeyDown(object sender, KeyRoutedEventArgs e)
 		{
-			//if (e.Key == Windows.System.VirtualKey.Enter)
-			//{
-			//	string query = (string)this.DefaultViewModel["WordToSearch"];
-			//	if (!String.IsNullOrWhiteSpace(query))
-			//		await startSearch(query);
-			//}
+			if (e.Key == Windows.System.VirtualKey.Enter && e.KeyStatus.RepeatCount == 0)
+			{
+				string query = (string)this.DefaultViewModel["WordToSearch"];
+				if (!String.IsNullOrWhiteSpace(query))
+					await startSearch(query);
+			}
+			e.Handled = true;
 		}
 
 		private async void itemSearch_ItemClick_1(object sender, ItemClickEventArgs e)

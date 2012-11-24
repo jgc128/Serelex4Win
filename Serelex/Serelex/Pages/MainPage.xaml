@@ -106,6 +106,8 @@
 			IsItemClickEnabled="True"
 			ItemClick="itemSearch_ItemClick_1"
             IsSwipeEnabled="false"/>
+		
+		<ProgressRing x:Name="prSearchActive" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Width="100" Height="100" Visibility="Collapsed" Opacity="0"/>
 
         <!-- Кнопка "Назад" и заголовок страницы -->
 		<!--<Grid>
@@ -189,6 +191,27 @@
 
 					</Storyboard>
                 </VisualState>
+            </VisualStateGroup>
+            <VisualStateGroup x:Name="SearchState">
+            	<VisualState x:Name="Normal"/>
+            	<VisualState x:Name="Search">
+            		<Storyboard>
+            			<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="IsActive" Storyboard.TargetName="prSearchActive">
+							<DiscreteObjectKeyFrame KeyTime="0" Value="True"/>
+            			</ObjectAnimationUsingKeyFrames>
+            			<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="prSearchActive">
+							<DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
+            			</ObjectAnimationUsingKeyFrames>
+						<!--
+						<FadeInThemeAnimation Storyboard.TargetName="prSearchActive"  />
+						<FadeOutThemeAnimation Storyboard.TargetName="itemGridView" />
+						<FadeOutThemeAnimation Storyboard.TargetName="itemListView" />
+						-->
+						<DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="prSearchActive" To="1" Duration="0:0:0.2" />
+						<DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="itemGridView" To="0" Duration="0:0:0.2" />
+						<DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="itemListView" To="1" Duration="0:0:0.2" />
+					</Storyboard>
+            	</VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
     </Grid>

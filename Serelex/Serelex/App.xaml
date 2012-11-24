@@ -1,0 +1,23 @@
+﻿<Application
+    x:Class="Serelex.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Serelex"
+	xmlns:common="using:Serelex.Common">
+
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+
+                <!-- 
+                    Стили, определяющие общие особенности внешнего вида и функциональности платформы
+                    Требуются для шаблонов элементов и проекта Visual Studio
+                 -->
+                <ResourceDictionary Source="Common/StandardStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+			<!-- Converters -->
+			
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

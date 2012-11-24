@@ -1,0 +1,11 @@
+Serelex/SerelexClient/obj
+Serelex/SerelexClient/bin
+Serelex/Serelex/obj
+Serelex/Serelex/bin
+Serelex/Serelex/AppPackages
+
+*.pfx
+*.dll
+*.exe
+*.sdf
+Thumbs.db

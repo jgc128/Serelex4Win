@@ -1,0 +1,31 @@
+﻿<#@ template debug="false" hostspecific="true" language="C#" #>
+<#@ assembly name="System.Core.dll" #>
+<#@ assembly name="System.Xml.dll" #>
+<#@ assembly name="System.Xml.Linq.dll" #>
+<#@ import namespace="System.Xml" #>
+<#@ import namespace="System.Xml.Linq" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.IO" #>
+<#@ output extension=".cs" #>
+using Windows.ApplicationModel.Resources;
+
+namespace Serelex.Resources
+{
+    public static class Strings 
+    {
+        private static readonly ResourceLoader Loader = new ResourceLoader();
+
+<#  
+    string stringsDir = Path.GetDirectoryName(this.Host.TemplateFile);
+    string reswFile = Path.Combine(stringsDir, @"..\Resources\en-US\Resources.resw");
+    var doc = XDocument.Load(reswFile);
+    var data = doc.Element("root").Elements("data").Select(i => new Tuple<string, string>(i.Attribute("name").Value, i.Element("value").Value)).ToArray();
+    foreach (var tuple in data.OrderBy(i=> i.Item1))
+    {
+#>
+		public static string <#= tuple.Item1.Replace(".","") #> { get { return Loader.GetString("<#=tuple.Item1.Replace(".","/")#>"); } } //<#=tuple.Item2#>
+<#
+	}
+#>
+	}
+}

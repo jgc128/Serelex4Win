@@ -120,4 +120,7 @@
   <data name="ApplicationTitle.Text" xml:space="preserve">
     <value>Serelex</value>
   </data>
+  <data name="ViewPrivacyPolicy" xml:space="preserve">
+    <value>View privacy policy</value>
+  </data>
 </root>

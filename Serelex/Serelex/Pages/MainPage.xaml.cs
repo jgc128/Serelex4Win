@@ -10,6 +10,8 @@ using SerelexClient;
 using SerelexClient.Image;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.System;
+using Windows.UI.ApplicationSettings;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -68,6 +70,17 @@ namespace Serelex.Pages
 			//}
 		}
 
+		protected override void OnNavigatedTo(NavigationEventArgs e)
+		{
+			SettingsPane.GetForCurrentView().CommandsRequested += MainPage_CommandsRequested;
+			base.OnNavigatedTo(e);
+		}
+
+		protected override void OnNavigatedFrom(NavigationEventArgs e)
+		{
+			SettingsPane.GetForCurrentView().CommandsRequested -= MainPage_CommandsRequested;
+			base.OnNavigatedFrom(e);
+		}
 
 		private async Task<ObservableCollection<PictureSearchResult>> processSearch(string Query)
 		{
@@ -163,5 +176,16 @@ namespace Serelex.Pages
 
 			await startSearch(newQuery);
 		}
+
+		void MainPage_CommandsRequested(SettingsPane sender, SettingsPaneCommandsRequestedEventArgs args)
+		{
+			SettingsCommand openPrivacyPolicyCommand = new SettingsCommand(1, Serelex.Resources.Strings.ViewPrivacyPolicy, async cmd =>
+			{
+				await Launcher.LaunchUriAsync(new Uri("http://mem.azurewebsites.net/Privacy policy.htm", UriKind.Absolute));
+			});
+
+			args.Request.ApplicationCommands.Add(openPrivacyPolicyCommand);
+		}
+
 	}
 }

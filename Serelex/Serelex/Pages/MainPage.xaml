@@ -106,6 +106,10 @@
 			IsItemClickEnabled="True"
 			ItemClick="itemSearch_ItemClick_1"
             IsSwipeEnabled="false"/>
+		<StackPanel x:Name="spStartText" Orientation="Vertical" HorizontalAlignment="Center" Grid.Row="1" Visibility="Collapsed" Width="800">
+			<TextBlock x:Uid="MainPageStartText" TextWrapping="Wrap" Text="[About text]" HorizontalAlignment="Center" Style="{StaticResource BasicTextStyle}" TextAlignment="Center" />
+			<HyperlinkButton x:Uid="MainPageVisitProjectPage" Content="[Visit project page]" HorizontalAlignment="Center" VerticalAlignment="Stretch" NavigateUri="http://serelex.it-claim.ru"/>
+		</StackPanel>
 		
 		<ProgressRing x:Name="prSearchActive" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Width="100" Height="100" Visibility="Collapsed" Opacity="0"/>
 
@@ -137,8 +141,6 @@
 				<Button Name="btnStartSearch" Content="&#xE1A3;" Grid.Column="1" Click="btnStartSearch_Click_1"
 						Style="{StaticResource TextPrimaryButtonStyle}" FontFamily="Segoe UI Symbol" Margin="15,0,0,0" FontSize="26.667" />
 			</Grid>
-			<StackPanel Name="spSearch" Orientation="Horizontal">
-			</StackPanel>
 
 			<TextBlock x:Name="pageTitle" x:Uid="ApplicationTitle" Grid.Column="2" Text="[ApplicationTitle]" IsHitTestVisible="false" Style="{StaticResource PageHeaderTextStyle}"/>
         </Grid>
@@ -211,6 +213,17 @@
 						<DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="itemGridView" To="0" Duration="0:0:0.2" />
 						<DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="itemListView" To="1" Duration="0:0:0.2" />
 					</Storyboard>
+            	</VisualState>
+            	<VisualState x:Name="Start">
+            		<Storyboard>
+            			<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="spStartText">
+            				<DiscreteObjectKeyFrame KeyTime="0">
+            					<DiscreteObjectKeyFrame.Value>
+            						<Visibility>Visible</Visibility>
+            					</DiscreteObjectKeyFrame.Value>
+            				</DiscreteObjectKeyFrame>
+            			</ObjectAnimationUsingKeyFrames>
+            		</Storyboard>
             	</VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>

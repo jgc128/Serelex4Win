@@ -139,7 +139,6 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>StringsGenerator.cs</LastGenOutput>
     </None>
-    <None Include="MultilingualResources\Псевдоязык %28псевдо%29.xlf" />
     <None Include="MultilingualResources\Русский %28Россия%29.xlf" />
     <None Include="Serelex_TemporaryKey.pfx" />
   </ItemGroup>

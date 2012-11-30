@@ -31,8 +31,13 @@ namespace SerelexClient.Common
 		public async Task<T> GetResult()
 		{
 			var response = await MakeAsyncRequest(url);
-			var result = JsonConvert.DeserializeObject<T>(response);
-			return result;
+			if (response != null)
+			{
+				var result = JsonConvert.DeserializeObject<T>(response);
+				return result;
+			}
+			else
+				return null;
 		}
 
 		public async Task<T> GetResult(string Url)
@@ -43,12 +48,33 @@ namespace SerelexClient.Common
 
 		public static Task<string> MakeAsyncRequest(string Url)
 		{
-			var request = (HttpWebRequest)WebRequest.Create(Url);
+			//var request = (HttpWebRequest)WebRequest.Create(Url);
 			//request.ContentType = "application/json";
-			Task<WebResponse> task = Task.Factory.FromAsync(
-				request.BeginGetResponse,
-				asyncResult => request.EndGetResponse(asyncResult),
-				null);
+			//Task<WebResponse> task = Task.Factory.FromAsync(
+			//	request.BeginGetResponse,
+			//	asyncResult => request.EndGetResponse(asyncResult),
+			//	null);
+
+			//return task.ContinueWith(t => ReadStreamFromResponse(t.Result));
+
+			var request = (HttpWebRequest)WebRequest.Create(Url);
+			Task<WebResponse> task = Task<WebResponse>.Factory.FromAsync(request.BeginGetResponse, new Func<IAsyncResult, WebResponse>(
+				(IAsyncResult asyncResult) =>
+				{
+					WebResponse resp = null;
+					try
+					{
+						resp = request.EndGetResponse(asyncResult);
+						return resp;
+					}
+					catch (Exception ex)
+					{
+						resp.Dispose();
+						return null;
+					}
+				}
+			), null);
+
 			return task.ContinueWith(t => ReadStreamFromResponse(t.Result));
 		}
 

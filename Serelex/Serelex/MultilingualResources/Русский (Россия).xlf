@@ -10,6 +10,24 @@
           <source>Serelex</source>
           <target state="signed-off">Serelex</target>
         </trans-unit>
+        <trans-unit id="Resources\MainPageStartText\Text" translate="yes" xml:space="preserve">
+          <source>A traditional search engine, given a text query, provides as a results a list of related documents.
+This system is a "lexico-semantic search engine". Given a query it returns a list of related words. This way you can discover meaning of words in an interactive manner, search for synonyms and more.
+
+This is an ongoing project, please write your suggestions or comments to Alexander Panchenko (alexander.panchenko@uclouvain.be). </source>
+          <target state="signed-off">Традиционная поисковая система по запросу возвращает список документов отвечающих на запрос. 
+Лексико-семантическая поисковая система Серелекс возвращает по запросу список связанных по смыслу слов. 
+
+Система позволяет исследовать смысл слов в интерактивном режиме, искать синонимы и многое другое.
+К примеру, по запросу 'fruit' возвращаются слова 'vegetable', 'mango', 'apple', '' и др.
+По запросу 'ununtu' система возвращает слова 'debian', 'mandriva', 'fedora', 'gentoo', 'opensuse'.
+
+Данный проект находиться в стадии разработки. Мы ждем ваших замечаний и предложений по адресу alexander.panchenko@uclouvain.be.</target>
+        </trans-unit>
+        <trans-unit id="Resources\MainPageVisitProjectPage\Content" translate="yes" xml:space="preserve">
+          <source>Visit project page</source>
+          <target state="signed-off">Посетить страницу проекта</target>
+        </trans-unit>
         <trans-unit id="Resources\ViewPrivacyPolicy" translate="yes" xml:space="preserve">
           <source>View privacy policy</source>
           <target state="signed-off">Политика конфиденциальности</target>

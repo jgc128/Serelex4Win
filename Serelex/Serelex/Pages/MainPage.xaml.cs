@@ -12,6 +12,7 @@ using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.System;
 using Windows.UI.ApplicationSettings;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -54,9 +55,10 @@ namespace Serelex.Pages
 		/// сеанса. Это значение будет равно NULL при первом посещении страницы.</param>
 		protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
 		{
-			// TODO: Назначение привязываемой коллекции элементов объекту this.DefaultViewModel["Items"]
 			this.DefaultViewModel["CanGoBack"] = false;
 			this.DefaultViewModel["WordToSearch"] = ExampleSearchSource.RandomSearchExample;
+
+			VisualStateManager.GoToState(this, "Start", true);
 
 			backStack = new List<QuerySearchResults>();
 			prevResults = null;
@@ -84,7 +86,17 @@ namespace Serelex.Pages
 
 		private async Task<ObservableCollection<PictureSearchResult>> processSearch(string Query)
 		{
-			SearchResults searchResults = await serelex.Search(Query);
+			SearchResults searchResults = null;
+			try
+			{
+				searchResults = await serelex.Search(Query);
+			}
+			catch (Exception ex)
+			{
+				MessageDialog md = new MessageDialog(ex.Message);
+				md.ShowAsync();
+				return null;
+			}
 
 			int i = 1;
 
@@ -160,11 +172,13 @@ namespace Serelex.Pages
 		{
 			if (e.Key == Windows.System.VirtualKey.Enter && e.KeyStatus.RepeatCount == 0)
 			{
-				string query = (string)this.DefaultViewModel["WordToSearch"];
+				//string query = (string)this.DefaultViewModel["WordToSearch"];
+				string query = tbSearch.Text;
 				if (!String.IsNullOrWhiteSpace(query))
 					await startSearch(query);
+
+				e.Handled = true;
 			}
-			e.Handled = true;
 		}
 
 		private async void itemSearch_ItemClick_1(object sender, ItemClickEventArgs e)

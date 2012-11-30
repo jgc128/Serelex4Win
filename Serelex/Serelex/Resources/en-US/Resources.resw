@@ -120,6 +120,15 @@
   <data name="ApplicationTitle.Text" xml:space="preserve">
     <value>Serelex</value>
   </data>
+  <data name="MainPageStartText.Text" xml:space="preserve">
+    <value>A traditional search engine, given a text query, provides as a results a list of related documents.
+This system is a "lexico-semantic search engine". Given a query it returns a list of related words. This way you can discover meaning of words in an interactive manner, search for synonyms and more.
+
+This is an ongoing project, please write your suggestions or comments to Alexander Panchenko (alexander.panchenko@uclouvain.be). </value>
+  </data>
+  <data name="MainPageVisitProjectPage.Content" xml:space="preserve">
+    <value>Visit project page</value>
+  </data>
   <data name="ViewPrivacyPolicy" xml:space="preserve">
     <value>View privacy policy</value>
   </data>

@@ -211,7 +211,7 @@
 						-->
 						<DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="prSearchActive" To="1" Duration="0:0:0.2" />
 						<DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="itemGridView" To="0" Duration="0:0:0.2" />
-						<DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="itemListView" To="1" Duration="0:0:0.2" />
+						<DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="itemListView" To="0" Duration="0:0:0.2" />
 					</Storyboard>
             	</VisualState>
             	<VisualState x:Name="Start">

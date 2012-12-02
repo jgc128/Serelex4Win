@@ -25,7 +25,7 @@ Stanford
 Installation
 ------------
 You can use Windows Store to install this application - [Serelex in Windows Store] (http://apps.microsoft.com/webpdp/app/lsse/48dc239a-e116-4234-87fd-ac90f030d72c)
-Another variant - manual installation latest version from packages from folder Serelex/Serelex/AppPackages. To install app, right-click on .ps1-file and enter Y on request.
+Another variant - manual installation latest version from packages from folder Serelex/Serelex/AppPackages/Serelex_1.0.0.0_AnyCPU_Test. To install app, right-click on .ps1-file and enter Y on request.
 
 Building
 ----------

@@ -69,7 +69,6 @@ namespace SerelexClient.Common
 					}
 					catch (Exception ex)
 					{
-						resp.Dispose();
 						return null;
 					}
 				}

@@ -106,9 +106,12 @@
 			IsItemClickEnabled="True"
 			ItemClick="itemSearch_ItemClick_1"
             IsSwipeEnabled="false"/>
-		<StackPanel x:Name="spStartText" Orientation="Vertical" HorizontalAlignment="Center" Grid.Row="1" Visibility="Collapsed" Width="800">
+		<StackPanel x:Name="spStartText" HorizontalAlignment="Center" Grid.Row="1" Visibility="Collapsed" Width="800">
 			<TextBlock x:Uid="MainPageStartText" TextWrapping="Wrap" Text="[About text]" HorizontalAlignment="Center" Style="{StaticResource BasicTextStyle}" TextAlignment="Center" />
 			<HyperlinkButton x:Uid="MainPageVisitProjectPage" Content="[Visit project page]" HorizontalAlignment="Center" VerticalAlignment="Stretch" NavigateUri="http://serelex.it-claim.ru"/>
+		</StackPanel>
+		<StackPanel x:Name="spNotFound" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed" Opacity="0">
+			<TextBlock x:Uid="MainPageNotFoundText" TextWrapping="Wrap" HorizontalAlignment="Center" Style="{StaticResource HeaderTextStyle}" Text="[Not Found]" />
 		</StackPanel>
 		
 		<ProgressRing x:Name="prSearchActive" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Width="100" Height="100" Visibility="Collapsed" Opacity="0"/>
@@ -214,7 +217,15 @@
 						<DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="itemListView" To="0" Duration="0:0:0.2" />
 					</Storyboard>
             	</VisualState>
-            	<VisualState x:Name="Start">
+				<VisualState x:Name="NotFound">
+					<Storyboard>
+						<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="spNotFound">
+							<DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
+						</ObjectAnimationUsingKeyFrames>
+						<DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="spNotFound" To="1" Duration="0:0:0.2" />
+					</Storyboard>
+				</VisualState>
+				<VisualState x:Name="Start">
             		<Storyboard>
             			<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="spStartText">
             				<DiscreteObjectKeyFrame KeyTime="0">

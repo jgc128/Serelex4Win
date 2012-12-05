@@ -98,6 +98,9 @@ namespace Serelex.Pages
 				return null;
 			}
 
+			if (searchResults.TotalRelations == 0)
+				return null;
+
 			int i = 1;
 
 			ObservableCollection<PictureSearchResult> results = new ObservableCollection<PictureSearchResult>();
@@ -123,23 +126,36 @@ namespace Serelex.Pages
 				if (prevResults.Query == Query)
 					return;
 
-			// Add query to back stack
-			if (AddToStack && prevResults != null)
-			{
-				backStack.Add(prevResults);
-				this.DefaultViewModel["CanGoBack"] = true;
-			}
-	
 			this.DefaultViewModel["Items"] = null;
 
 			ObservableCollection<PictureSearchResult> results = await processSearch(Query);
 
-			VisualStateManager.GoToState(this, "Normal", true);
+			bool success = true;
+			if (results != null)
+			{
+				VisualStateManager.GoToState(this, "Normal", true);
+			}
+			else
+			{
+				VisualStateManager.GoToState(this, "NotFound", true);
+				success = false;
+			}
+
 			this.DefaultViewModel["Items"] = results;
 
-			prevResults = new QuerySearchResults();
-			prevResults.Query = Query;
-			prevResults.Results = results;
+			if (success)
+			{
+				// Add query to back stack
+				if (AddToStack && prevResults != null)
+				{
+					backStack.Add(prevResults);
+					this.DefaultViewModel["CanGoBack"] = true;
+				}
+
+				prevResults = new QuerySearchResults();
+				prevResults.Query = Query;
+				prevResults.Results = results;
+			}
 
 			isSearchProcess = false;
 		}
@@ -160,6 +176,8 @@ namespace Serelex.Pages
 
 			this.DefaultViewModel["Items"] = result.Results;
 			this.DefaultViewModel["WordToSearch"] = result.Query;
+
+			VisualStateManager.GoToState(this, "Normal", true);
 		}
 
 		private async void btnStartSearch_Click_1(object sender, RoutedEventArgs e)

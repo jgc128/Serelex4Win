@@ -12,6 +12,8 @@ namespace SerelexClient
 		public string Word { get; set; }
 		public string Model { get; set; }
 
+		public int TotalRelations { get; set; }
+
 		public List<SearchResultItem> Relations { get; set; }
 
 		public override string ToString()

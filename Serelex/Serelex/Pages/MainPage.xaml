@@ -113,8 +113,8 @@
 		<StackPanel x:Name="spNotFound" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed" Opacity="0">
 			<TextBlock x:Uid="MainPageNotFoundText" TextWrapping="Wrap" HorizontalAlignment="Center" Style="{StaticResource HeaderTextStyle}" Text="[Not Found]" />
 		</StackPanel>
-		
-		<ProgressRing x:Name="prSearchActive" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Width="100" Height="100" Visibility="Collapsed" Opacity="0"/>
+
+		<ProgressRing x:Name="prSearchActive" Foreground="{StaticResource SerelexColorBrush}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Width="100" Height="100" Visibility="Collapsed" Opacity="0"/>
 
         <!-- Кнопка "Назад" и заголовок страницы -->
 		<!--<Grid>
@@ -132,7 +132,7 @@
 				<ColumnDefinition Width="Auto" />
 			</Grid.ColumnDefinitions>
 
-			<Button x:Name="backButton" IsEnabled="{Binding CanGoBack}" Click="GoBack" Style="{StaticResource BackButtonStyle}"/>
+			<Button x:Name="backButton" IsEnabled="{Binding CanGoBack}" Foreground="#00b7ff" Click="GoBack" Style="{StaticResource BackButtonStyle}"/>
 
 			<!-- Style="{StaticResource TextBoxSearchTemplate}" 	-->
 			<Grid Name="grdSearchControls" Grid.Column="1" Margin="0,0,36,36" Height="48" VerticalAlignment="Bottom">
@@ -145,7 +145,7 @@
 						Style="{StaticResource TextPrimaryButtonStyle}" FontFamily="Segoe UI Symbol" Margin="15,0,0,0" FontSize="26.667" />
 			</Grid>
 
-			<TextBlock x:Name="pageTitle" x:Uid="ApplicationTitle" Grid.Column="2" Text="[ApplicationTitle]" IsHitTestVisible="false" Style="{StaticResource PageHeaderTextStyle}"/>
+			<TextBlock x:Name="pageTitle" x:Uid="ApplicationTitle" Grid.Column="2" Foreground="{StaticResource SerelexColorBrush}" Text="[ApplicationTitle]" IsHitTestVisible="false" Style="{StaticResource PageHeaderTextStyle}"/>
         </Grid>
 
         <VisualStateManager.VisualStateGroups>

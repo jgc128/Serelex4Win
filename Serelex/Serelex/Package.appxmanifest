@@ -1,39 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
-
-  <Identity Name="c909aca0-83ae-47eb-b98a-16eae313bdc5"
-            Publisher="CN=Алексей"
-            Version="1.0.0.0" />
-
+  <Identity Name="9145jgc128.LSSE" Publisher="CN=FD90305C-6917-4774-9AAA-7C2371C88CE1" Version="2.0.0.0" />
   <Properties>
     <DisplayName>Serelex</DisplayName>
-    <PublisherDisplayName>Алексей</PublisherDisplayName>
+    <PublisherDisplayName>jgc128</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
-
   <Prerequisites>
     <OSMinVersion>6.2.1</OSMinVersion>
     <OSMaxVersionTested>6.2.1</OSMaxVersionTested>
   </Prerequisites>
-
   <Resources>
-    <Resource Language="x-generate"/>
+    <Resource Language="x-generate" />
   </Resources>
-
   <Applications>
-    <Application Id="App"
-        Executable="$targetnametoken$.exe"
-        EntryPoint="Serelex.App">
-        <VisualElements
-            DisplayName="Serelex"
-            Logo="Assets\Logo.png"
-            SmallLogo="Assets\SmallLogo.png"
-            Description="Serelex"
-            ForegroundText="light"
-            BackgroundColor="#464646">
-            <DefaultTile ShowName="allLogos" />
-            <SplashScreen Image="Assets\SplashScreen.png" />
-        </VisualElements>
+    <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="Serelex.App">
+      <VisualElements DisplayName="Serelex" Logo="Assets\Logo.png" SmallLogo="Assets\SmallLogo.png" Description="Serelex" ForegroundText="light" BackgroundColor="#FFFFFF">
+        <DefaultTile ShowName="allLogos" />
+        <SplashScreen Image="Assets\SplashScreen.png" />
+      </VisualElements>
     </Application>
   </Applications>
   <Capabilities>

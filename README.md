@@ -10,17 +10,17 @@ Supports easily navigate to the next search item by simply clicking on it, and t
 
 Screenshot
 ----------
-Clinton
-![Clinton] (http://klan-hub.ru/host_new/images/50bb1e1a5c175.png)  
+Facebook
+![Facebook] (http://klan-hub.ru/host_new/images/50c3944b8eca4.png)  
+
+Snapped mode - Clinton
+![Clinton] (http://klan-hub.ru/host_new/images/50c3944b7e5aa.png)  
 
 Apple
-![Apple] (http://klan-hub.ru/host_new/images/50bb1e1a97308.png)  
-
-Animal
-![Animal] (http://klan-hub.ru/host_new/images/50bb1e1a83445.png)  
+![Apple] (http://klan-hub.ru/host_new/images/50c3944bcc580.png)  
 
 Stanford
-![Stanford] (http://klan-hub.ru/host_new/images/50bb1e19bb8c2.png)  
+![Stanford] (http://klan-hub.ru/host_new/images/50c3944bab59f.png)  
 
 Installation
 ------------

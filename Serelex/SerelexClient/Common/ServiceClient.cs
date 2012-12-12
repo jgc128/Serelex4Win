@@ -79,6 +79,9 @@ namespace SerelexClient.Common
 
 		private static string ReadStreamFromResponse(WebResponse response)
 		{
+			if (response == null)
+				return null;
+
 			using (var responseStream = response.GetResponseStream())
 			using (var reader = new StreamReader(responseStream))
 			{

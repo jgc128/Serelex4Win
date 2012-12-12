@@ -18,6 +18,9 @@ namespace SerelexClient.Image
 
 			string result = await ServiceClient<string>.MakeAsyncRequest(u);
 
+			if (result == null || result.Contains("Image not found"))
+				return null;
+
 			int src = result.IndexOf("src=") + 5;
 			int last = result.LastIndexOf('"');
 			string imgUri = result.Substring(src, last - src);

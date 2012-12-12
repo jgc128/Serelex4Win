@@ -23,5 +23,12 @@ namespace Serelex.Classes
 			get { return _query; }
 			set { this.SetProperty(ref this._query, value); }
 		}
+
+		private bool _isSuccess;
+		public bool IsSuccess
+		{
+			get { return _isSuccess; }
+			set { this.SetProperty(ref this._isSuccess, value); }
+		}
 	}
 }

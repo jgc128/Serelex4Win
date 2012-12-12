@@ -39,6 +39,8 @@ namespace Serelex.Pages
 
 		bool isSearchProcess;
 
+		Uri noImageUri = new Uri("ms-appx:///Assets/NoImage.png", UriKind.Absolute);
+
 		public MainPage()
 		{
 			this.InitializeComponent();
@@ -109,22 +111,24 @@ namespace Serelex.Pages
 				PictureSearchResult pr = new PictureSearchResult();
 				pr.Index = i++;
 				pr.SearchResult = r;
+				pr.Image = noImageUri;
 				LoadResultImage(pr);
 				results.Add(pr);
 			}
 			return results;
 		}
+
 		private async Task startSearch(string Query, bool AddToStack = true)
 		{
 			if (isSearchProcess)
 				return;
 
-			VisualStateManager.GoToState(this, "Search", true);
-			isSearchProcess = true;
-
 			if (prevResults != null)
 				if (prevResults.Query == Query)
 					return;
+
+			VisualStateManager.GoToState(this, "Search", true);
+			isSearchProcess = true;
 
 			this.DefaultViewModel["Items"] = null;
 
@@ -143,26 +147,26 @@ namespace Serelex.Pages
 
 			this.DefaultViewModel["Items"] = results;
 
-			if (success)
+			// Add query to back stack
+			if (AddToStack && prevResults != null)
 			{
-				// Add query to back stack
-				if (AddToStack && prevResults != null)
-				{
-					backStack.Add(prevResults);
-					this.DefaultViewModel["CanGoBack"] = true;
-				}
-
-				prevResults = new QuerySearchResults();
-				prevResults.Query = Query;
-				prevResults.Results = results;
+				backStack.Add(prevResults);
+				this.DefaultViewModel["CanGoBack"] = true;
 			}
+
+			prevResults = new QuerySearchResults();
+			prevResults.Query = Query;
+			prevResults.Results = results;
+			prevResults.IsSuccess = success;
 
 			isSearchProcess = false;
 		}
 
 		private async void LoadResultImage(PictureSearchResult Result)
 		{
-			Result.Image = await pp.GetPictureFromQuery(Result.SearchResult.Word);
+			Uri imgUri = await pp.GetPictureFromQuery(Result.SearchResult.Word);
+			if (imgUri != null)
+				Result.Image = imgUri;
 		}
 
 		protected override void GoBack(object sender, RoutedEventArgs e)
@@ -177,7 +181,10 @@ namespace Serelex.Pages
 			this.DefaultViewModel["Items"] = result.Results;
 			this.DefaultViewModel["WordToSearch"] = result.Query;
 
-			VisualStateManager.GoToState(this, "Normal", true);
+			if(result.IsSuccess)
+				VisualStateManager.GoToState(this, "Normal", true);
+			else
+				VisualStateManager.GoToState(this, "NotFound", true);
 		}
 
 		private async void btnStartSearch_Click_1(object sender, RoutedEventArgs e)

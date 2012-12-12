@@ -354,6 +354,7 @@
     <ReservedNames>
       <ReservedName>LSSE</ReservedName>
       <ReservedName>Serelex</ReservedName>
+      <ReservedName>Серелекс</ReservedName>
     </ReservedNames>
   </ProductReservedInfo>
   <AccountPackageIdentityNames>
@@ -364,7 +365,7 @@
   <PackageInfoList LandingUrl="https://appdev.microsoft.com:443/StorePortals/Developer/Catalog/ReleaseAnchor/48dc239a-e116-4234-87fd-ac90f030d72c">
     <PackageInfo>
       <PackageArchitecture>neutral</PackageArchitecture>
-      <PackageMaxArchitectureVersion>1.0.0.0</PackageMaxArchitectureVersion>
+      <PackageMaxArchitectureVersion>2.0.0.1</PackageMaxArchitectureVersion>
     </PackageInfo>
   </PackageInfoList>
 </StoreAssociation>

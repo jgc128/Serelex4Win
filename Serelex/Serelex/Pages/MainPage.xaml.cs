@@ -8,6 +8,7 @@ using Serelex.Classes;
 using Serelex.DataModel;
 using SerelexClient;
 using SerelexClient.Image;
+using Windows.ApplicationModel.Search;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.System;
@@ -58,32 +59,61 @@ namespace Serelex.Pages
 		protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
 		{
 			this.DefaultViewModel["CanGoBack"] = false;
-			this.DefaultViewModel["WordToSearch"] = ExampleSearchSource.RandomSearchExample;
-
-			VisualStateManager.GoToState(this, "Start", true);
 
 			backStack = new List<QuerySearchResults>();
 			prevResults = null;
 			isSearchProcess = false;
+
+			if (pageState == null)
+			{
+				this.DefaultViewModel["WordToSearch"] = ExampleSearchSource.RandomSearchExample;
+
+				VisualStateManager.GoToState(this, "Start", true);
+			}
+			else
+			{
+				string prevSearch = (string)pageState["WordToSearch"];
+				//this.DefaultViewModel["WordToSearch"] = prevSearch;
+				//startSearch(prevSearch);
+				SearchFor(prevSearch);
+			}
 		}
+
 		protected override void SaveState(Dictionary<string, object> pageState)
 		{
 			//if (backStack.Count != 0)
 			//{
 			//	pageState["back_stack"] = backStack;
 			//}
+			pageState["WordToSearch"] = this.DefaultViewModel["WordToSearch"];
 		}
 
 		protected override void OnNavigatedTo(NavigationEventArgs e)
 		{
 			SettingsPane.GetForCurrentView().CommandsRequested += MainPage_CommandsRequested;
+
+			SearchPane searchPane = SearchPane.GetForCurrentView();
+			searchPane.QuerySubmitted += searchPane_QuerySubmitted;
+			searchPane.SuggestionsRequested += searchPane_SuggestionsRequested;
+
 			base.OnNavigatedTo(e);
 		}
 
 		protected override void OnNavigatedFrom(NavigationEventArgs e)
 		{
 			SettingsPane.GetForCurrentView().CommandsRequested -= MainPage_CommandsRequested;
+
+			SearchPane searchPane = SearchPane.GetForCurrentView();
+			searchPane.QuerySubmitted -= searchPane_QuerySubmitted;
+			searchPane.SuggestionsRequested -= searchPane_SuggestionsRequested;
+
 			base.OnNavigatedFrom(e);
+		}
+
+		public async Task SearchFor(string Query)
+		{
+			this.DefaultViewModel["WordToSearch"] = Query;
+			await startSearch(Query);
 		}
 
 		private async Task<ObservableCollection<PictureSearchResult>> processSearch(string Query)
@@ -224,6 +254,25 @@ namespace Serelex.Pages
 			});
 
 			args.Request.ApplicationCommands.Add(openPrivacyPolicyCommand);
+		}
+
+		void searchPane_QuerySubmitted(SearchPane sender, SearchPaneQuerySubmittedEventArgs args)
+		{
+			string query = args.QueryText;
+			SearchFor(query);
+		}
+
+		async void searchPane_SuggestionsRequested(SearchPane sender, SearchPaneSuggestionsRequestedEventArgs args)
+		{
+			var request = args.Request;
+			var defferal = request.GetDeferral();
+			var query = args.QueryText;
+
+			var suggestions = await serelex.GetSuggestions(query);
+			if (suggestions.Count > 0)
+				request.SearchSuggestionCollection.AppendQuerySuggestions(suggestions);
+
+			defferal.Complete();
 		}
 
 	}

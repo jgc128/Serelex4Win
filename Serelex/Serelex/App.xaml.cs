@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using Serelex.Common;
 using Serelex.Pages;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.Search;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -35,13 +37,7 @@ namespace Serelex
 			this.Suspending += OnSuspending;
 		}
 
-		/// <summary>
-		/// Вызывается при обычном запуске приложения пользователем.  Будут использоваться другие точки входа,
-		/// если приложение запускается для открытия конкретного файла, отображения
-		/// результатов поиска и т. д.
-		/// </summary>
-		/// <param name="args">Сведения о запросе и обработке запуска.</param>
-		protected override async void OnLaunched(LaunchActivatedEventArgs args)
+		async Task ActivateApplication(IActivatedEventArgs args)
 		{
 			// Do not repeat app initialization when already running, just ensure that
 			// the window is active
@@ -76,6 +72,28 @@ namespace Serelex
 			// Размещение фрейма в текущем окне и проверка того, что он активен
 			Window.Current.Content = rootFrame;
 			Window.Current.Activate();
+		}
+
+
+		protected override async void OnSearchActivated(SearchActivatedEventArgs args)
+		{
+			await ActivateApplication(args);
+
+			if (args.QueryText != "")
+			{
+				await ((Window.Current.Content as Frame).Content as MainPage).SearchFor(args.QueryText);
+			}
+		}
+
+		/// <summary>
+		/// Вызывается при обычном запуске приложения пользователем.  Будут использоваться другие точки входа,
+		/// если приложение запускается для открытия конкретного файла, отображения
+		/// результатов поиска и т. д.
+		/// </summary>
+		/// <param name="args">Сведения о запросе и обработке запуска.</param>
+		protected override async void OnLaunched(LaunchActivatedEventArgs args)
+		{
+			await ActivateApplication(args);
 		}
 
 		/// <summary>

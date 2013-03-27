@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
-  <Identity Name="9145jgc128.LSSE" Publisher="CN=FD90305C-6917-4774-9AAA-7C2371C88CE1" Version="2.0.0.2" />
+  <Identity Name="9145jgc128.LSSE" Publisher="CN=FD90305C-6917-4774-9AAA-7C2371C88CE1" Version="2.0.0.4" />
   <Properties>
     <DisplayName>Serelex</DisplayName>
     <PublisherDisplayName>jgc128</PublisherDisplayName>
@@ -15,10 +15,13 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="Serelex.App">
-      <VisualElements DisplayName="Serelex" Logo="Assets\Logo.png" SmallLogo="Assets\SmallLogo.png" Description="Serelex" ForegroundText="light" BackgroundColor="#00b7ff">
+      <VisualElements DisplayName="Serelex" Logo="Assets\Logo.png" SmallLogo="Assets\SmallLogo.png" Description="Serelex" ForegroundText="dark" BackgroundColor="#FFFFFF">
         <DefaultTile ShowName="allLogos" />
         <SplashScreen Image="Assets\SplashScreen.png" />
       </VisualElements>
+      <Extensions>
+        <Extension Category="windows.search" />
+      </Extensions>
     </Application>
   </Applications>
   <Capabilities>

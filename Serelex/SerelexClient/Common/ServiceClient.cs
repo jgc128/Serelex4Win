@@ -67,7 +67,7 @@ namespace SerelexClient.Common
 						resp = request.EndGetResponse(asyncResult);
 						return resp;
 					}
-					catch (Exception ex)
+					catch
 					{
 						return null;
 					}
